@@ -1,33 +1,33 @@
 Cryptocurrency-faucet-script
 ============================
-* A big THANK YOU goes to a friend who provided the script and requested to not be named.
+
+I DO NOT GIVE INSTALLATION SUPPORT.  
 
 Faucet features:
 
-- Can be used for the most cryptocurrencies
-- Minimum and maximum payouts can be set
+- Supports standard Bitcoin JSON RPC API commands
+- Minimum and maximum payouts
 - Payment system for staged, timed or direct payouts
-- Recaptcha integrated (http://www.google.com/recaptcha/) IMPORTANT: Please note that Recaptcha2 can be set within the config file. Version 2 will be released shortly directly from google and is already implimented within the script.
+- Recaptcha integrated (http://www.google.com/recaptcha/) 
+  IMPORTANT: Please note that Recaptcha2 can be set within the config file.
 - Proxies filter option
-- Promocodes possible for extra payouts
+- Promocodes for extra payouts
 - Useable with encrypted wallets
 - Easy editable template system
-
 
 Installation:
 
 1. Download or clone this repository
 2. Upload the files to your ftp folder
 3. Create a database and import faucet.sql
-4. Open the config.php and edit all the settings within to suit your needs - This could take some time :)
+4. Open the config.php and edit all the settings within to suit your needs
 5. Create cronjob(s):
 
 If you set "stage_payments" => true and "staged_payment_cron_only" => true (you did that on step 4), you will need to create a cronjob for /cron/run.php and /lib/proxy_filter/cron/tor.php
 
 If you set "stage_payments" => true and "staged_payment_cron_only" => false you just have to create a cronjob for /lib/proxy_filter/cron/tor.php
 
-// IMPORTANT: The tor proxy list gets downloaded from https://www.dan.me.uk/torlist/ - He has only given permission to download once every hour! Please note that you will be banned from the service if you exceed this quota! Create a .htaccess and .htpasswd for the cronjob folder and /lib/proxy_filter/cron/, so only you can fire them! //
-
+IMPORTANT: The tor proxy list gets downloaded from https://www.dan.me.uk/torlist/ - He only allows to download once a hour! Please note that you will be banned from the service if you exceed this quota! Create a .htaccess and .htpasswd for the cronjob folder and /lib/proxy_filter/cron/ to secure them.
 
 How to add promo codes:
 
