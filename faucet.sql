@@ -11,7 +11,7 @@ CREATE TABLE `sf_payouts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(45) NOT NULL DEFAULT '',
   `payout_amount` double NOT NULL,
-  `payout_address` varchar(34) NOT NULL DEFAULT '',
+  `payout_address` varchar(123) NOT NULL DEFAULT '',
   `timestamp` datetime NOT NULL,
   `promo_code` varchar(80) NOT NULL DEFAULT '',
   `promo_payout_amount` double NOT NULL,

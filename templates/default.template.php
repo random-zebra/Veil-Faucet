@@ -41,7 +41,7 @@
    <nav class="navbar navbar-default">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a href="#">
+         <a href=".">
            <img alt="Brand" src="veil.png" class="mybrand">
          </a>
        </div>
@@ -129,7 +129,8 @@
             <h3 class="panel-title">Status</h3>
         </div>
         <div class="panel-body">
-            Success! You have been awarded with {{PAYOUT_AMOUNT}} {{COINNAME}}!
+            Success! You have been awarded with {{PAYOUT_AMOUNT}} {{COINNAME}}!<br>
+            TX hash: {{TX_HASH}}
         </div>
     </div>
     <?php
