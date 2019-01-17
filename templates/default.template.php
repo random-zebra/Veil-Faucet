@@ -39,17 +39,28 @@
 <div id="wrapper" class="container">
 
    <nav class="navbar navbar-default">
-     <div class="container-fluid">
-       <div class="navbar-header">
-         <a href=".">
-           <img alt="Brand" src="veil.png" class="mybrand">
-         </a>
-       </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://testnet.veil-project.com" target="_blank">Testnet Block Explorer</a></li>
-        <li><a href="https://veil-project.com" target="_blank">Veil-Project.com</a></li>
-     </div>
-   </nav>
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href=".">
+              <img alt="Brand" src="veil.png" class="mybrand">
+            </a>
+          </div>
+         <ul class="nav navbar-nav navbar-right">
+           <li><a href="https://testnet.veil-project.com" target="_blank">Testnet Block Explorer</a></li>
+         </ul>
+        </div>
+      </nav>
+
+      <nav class="navbar navbar-inverse navbar-fixed-bottom">
+         <div class="container-fluid">
+           <ul class="nav navbar-nav">
+             <li><a href="https://github.com/random-zebra" target="_blank">(c) 2019 random.zebra</a></li>
+           </ul>
+           <ul class="nav navbar-nav navbar-right">
+             <li><a href="https://veil-project.com" target="_blank">Veil-Project.com</a></li>
+           </ul>
+         </div>
+       </nav>
 
    <div class="page-header">
       <h1>Veil Testnet Faucet</h1>
