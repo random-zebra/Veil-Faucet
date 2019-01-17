@@ -78,7 +78,7 @@ class simple_faucet
 			if (class_exists("jsonRPCClient"))
 				{
 				$this->rpc_client = new jsonRPCClient('http://'.urlencode($config["rpc_user"]).':'.urlencode($config["rpc_password"]).'@'.urlencode($config["rpc_host"]).':'.urlencode($config["rpc_port"]));
-				
+
 				$this->db = @new mysqli($config["mysql_host"],$config["mysql_user"],$config["mysql_password"],$config["mysql_database"]);
 				//if (!$this->db->connect_error)
 				if (!mysqli_connect_error() && !is_null($this->balance = $this->rpc("getbalance"))) // compatibility with older PHP versions
@@ -136,7 +136,7 @@ class simple_faucet
 									$promo_code = "";
 									if ($this->config["use_promo_codes"] && isset($_POST["promo_code"])) // check for valid promo code
 										{
-										$result2 = $this->db->query("SELECT `minimum_payout`,`maximum_payout`,`uses` FROM `".$this->config["mysql_table_prefix"]."promo_codes` WHERE `code` = '".$this->db->escape_string($_POST["promo_code"])."'"); 
+										$result2 = $this->db->query("SELECT `minimum_payout`,`maximum_payout`,`uses` FROM `".$this->config["mysql_table_prefix"]."promo_codes` WHERE `code` = '".$this->db->escape_string($_POST["promo_code"])."'");
 										if ($promo = @$result2->fetch_assoc())
 											{
 											$promo["uses"] = intval($promo["uses"]); // MySQLi
@@ -170,8 +170,14 @@ class simple_faucet
 											$this->status = $this->stage_payment($dogecoin_address,($this->payout_amount+$this->promo_payout_amount)) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // stage the DOGE;
 										else
 											$this->status = !is_null($this->rpc("sendtoaddress",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
+                                 // try stealth addresses
+                                 if ($this->status == SF_STATUS_PAYOUT_ERROR)
+                                    $this->status = !is_null($this->rpc("sendstealthtostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR;
+                                 if ($this->status == SF_STATUS_PAYOUT_ERROR)
+                                    $this->status = !is_null($this->rpc("sendbasecointostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
+
 										}
-									
+
 									if ($this->config["wallet_passphrase"] != "")
 										$this->rpc("walletlock"); // lock wallet
 									}
@@ -210,7 +216,7 @@ class simple_faucet
 		ob_start();
 		include("./templates/".$this->config["template"].".template.php");
 		$template = ob_get_clean();
-		
+
 		$self = $this;
 		$db = $this->db;
 		$header = $this->header;
@@ -232,16 +238,16 @@ class simple_faucet
 				case "donation_address":
 				case "title":
 					return isset($config[strtolower($match[1])]) ? $config[strtolower($match[1])] : $match[1];
-                
+
                 case "head":
                 	return $header;
-                                
+
                 case "coinname":
 	               return $config["coinname"];
-                
+
 				case "balance":
 					return $balance;
-				
+
 				// statistics:
 				case "average_payout":
 					return $self->payout_aggregate("AVG");
@@ -368,7 +374,7 @@ class simple_faucet
 			}
 		else
 			return recaptcha_check_answer($this->config["captcha_config"]["private_key"],@$_POST["g-recaptcha-response"],$this->config["captcha_https"]);
-		return false;		
+		return false;
 		}
 
 	protected function stage_payment($address,$amount)
