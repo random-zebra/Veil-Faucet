@@ -38,7 +38,22 @@
 
 <div id="wrapper" class="container">
 
-<h2>{{TITLE}}</h2>
+   <nav class="navbar navbar-default">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a href="#">
+           <img alt="Brand" src="veil.png" class="mybrand">
+         </a>
+       </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://testnet.veil-project.com">Testnet Block Explorer</a></li>
+        <li><a href="https://veil-project.com">Veil-Project.com</a></li>
+     </div>
+   </nav>
+
+   <div class="page-header">
+      <h1>Veil Testnet Faucet</h1>
+   </div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
