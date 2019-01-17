@@ -46,8 +46,8 @@
          </a>
        </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://testnet.veil-project.com">Testnet Block Explorer</a></li>
-        <li><a href="https://veil-project.com">Veil-Project.com</a></li>
+        <li><a href="https://testnet.veil-project.com" target="_blank">Testnet Block Explorer</a></li>
+        <li><a href="https://veil-project.com" target="_blank">Veil-Project.com</a></li>
      </div>
    </nav>
 
