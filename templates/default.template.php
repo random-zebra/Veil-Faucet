@@ -1,18 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    
+
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<meta name="author" content="Cryptocurrency faucet script" />
-	
+
     <!-- Default CSS -->
     <link rel="stylesheet" href="./css/default.css" type="text/css" />
-    
+
     <!-- Bootstrap CDN Minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!-- Bootstrap CDN Minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -22,10 +22,10 @@
     {{HEAD}}
 
 	<title>{{TITLE}}</title>
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
-    
+
     <!-- Recaptcha theme -->
      <script type="text/javascript">
         var RecaptchaOptions = {
@@ -42,30 +42,22 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Advertisements</h3>
-    </div>
-    <div class="panel-body">
-        {{ADS}}
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
         <h3 class="panel-title">Faucet stats</h3>
     </div>
     <div class="panel-body">
-        <span>Balance:</span> 
+        <span>Balance:</span>
         <span class="highlight">{{BALANCE}}</span> {{COINNAME}}<br/>
         Already paid: <span class="highlight" >{{TOTAL_PAYOUT}}</span> with <span class="highlight" >{{NUMBER_OF_PAYOUTS}}</span> payouts<br/><br/>
-      
+
         How many payments are currently staged: <span class="highlight" >{{STAGED_PAYMENT_COUNT}}</span> payments.<br/>
-      
+
         How many payments are left before they are executed: <span class="highlight" >{{STAGED_PAYMENTS_LEFT}}</span> payments.<br/>
-      
+
         Payments will be done after <span class="highlight" >{{STAGED_PAYMENT_THRESHOLD}}</span> staged payments or automated hourly.<br/><br/>
         You can get free {{COINNAME}} every hour.
   </div>
 </div>
-            
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Please donate to keep this faucet running</h3>
@@ -75,7 +67,7 @@
     </div>
 </div>
 
-    <?php 
+    <?php
         switch ($this->status())
         {
             case SF_STATUS_FAUCET_INCOMPLETE:
@@ -180,20 +172,16 @@
             case SF_STATUS_INVALID_DOGE_ADDRESS:
             case SF_STATUS_OPERATIONAL:
 	?>
-    
+
     <form method="post" action="">
         <div class="input-group input-group-sm">
             <span class="input-group-addon">{{COINNAME}} address</span>
             <input  name="dogecoin_address" type="text" class="form-control" value="" placeholder="Enter your {{COINNAME}} address here" />
         </div>
-        <div class="input-group input-group-sm margintop">
-            <span class="input-group-addon">Promo code</span>
-            <input name="promo_code" type="text" value="" class="form-control" placeholder="Promo code (optional)" />
-        </div>
         <div class="margintop" id="captcha">{{CAPTCHA}}</div>
         <input id="send" name="dogecoin_submit" type="submit" class="btn btn-warning btn-md margintop" value="Send {{COINNAME}}" />
     </form>
-    
+
 	<?php
         if ($this->status() == SF_STATUS_INVALID_DOGE_ADDRESS)
         {
@@ -224,8 +212,8 @@
     break;
     }
     ?>
-                                         
+
 </div>
-    
+
 </body>
 </html>
