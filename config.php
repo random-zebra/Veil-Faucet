@@ -97,7 +97,7 @@ $config = array(
 	"wallet_passphrase" => "",
 
 	// Donation address:
-	"donation_address" => "tps1qqp9g03pj8e6nznr67pqv9lz7ftqujk0ksua0ml3xu0n9zwd4rsy0xspqts3f07eve2he66spgxavvvmnspzs5ph3cx09m00q6x7ptg32xf8kqqqegf7wp", // donation address to display
+	"donation_address" => "tps1qqph0n7p6g2zzvr0hhdnywznx8u8llyr7khvce7v8lkadajx79dqalcpqd9gxns2q62ld07802g95hhcsjk9wh9jdzkuc5wq9hv8xlaxlw2p7qqqn00lur", // donation address to display
 
 	// Faucet look and feel:
 	"title" => "Veil Testnet Faucet", // page title, may be used by the template too
