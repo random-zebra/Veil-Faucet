@@ -169,13 +169,19 @@ class simple_faucet
 										if ($this->config["stage_payments"])
 											$this->status = $this->stage_payment($dogecoin_address,($this->payout_amount+$this->promo_payout_amount)) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // stage the DOGE;
 										else
-											$this->status = !is_null($this->rpc("sendtoaddress",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
+                                 {
+                                 $this->hash = $this->rpc("sendtoaddress",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
+											$this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
                                  // try stealth addresses
-                                 if ($this->status == SF_STATUS_PAYOUT_ERROR)
-                                    $this->status = !is_null($this->rpc("sendstealthtostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR;
-                                 if ($this->status == SF_STATUS_PAYOUT_ERROR)
-                                    $this->status = !is_null($this->rpc("sendbasecointostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ))) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
-
+                                 if ($this->status == SF_STATUS_PAYOUT_ERROR) {
+                                    $this->rpc("sendstealthtostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
+                                    $this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR;
+                                 }
+                                 if ($this->status == SF_STATUS_PAYOUT_ERROR) {
+                                    $this->rpc("sendbasecointostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
+                                    $this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
+                                 }
+                                 }
 										}
 
 									if ($this->config["wallet_passphrase"] != "")
@@ -226,8 +232,9 @@ class simple_faucet
 		$payout_amount = $this->payout_amount;
 		$payout_address = $this->payout_address;
 		$promo_payout_amount = $this->promo_payout_amount;
+      $tx_hash = $this->hash;
 
-		$template = preg_replace_callback("/\{\{([a-zA-Z-0-9\ \_]+?)\}\}/",function($match) use ($self,$db,$header,$status,$config,$balance,$payout_amount,$payout_address,$promo_payout_amount)
+		$template = preg_replace_callback("/\{\{([a-zA-Z-0-9\ \_]+?)\}\}/",function($match) use ($self,$db,$header,$status,$config,$balance,$payout_amount,$payout_address,$promo_payout_amount,$tx_hash)
 			{
 			switch (strtolower($match[1]))
 				{
@@ -300,6 +307,9 @@ class simple_faucet
 
 				case "promo_payout_amount":
 					return $promo_payout_amount;
+
+            case "tx_hash":
+               return $tx_hash;
 
 				// CAPTCHA:
 
