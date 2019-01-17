@@ -130,7 +130,7 @@
         </div>
         <div class="panel-body">
             Success! You have been awarded with {{PAYOUT_AMOUNT}} {{COINNAME}}!<br>
-            TX hash: {{TX_HASH}}
+            Transaction: <a href="https://testnet.veil-project.com/tx/{{TX_HASH}}" target="_blank">{{TX_HASH}}</a>
         </div>
     </div>
     <?php
@@ -143,7 +143,8 @@
         </div>
         <div class="panel-body">
             Success! You have been awarded with {{PAYOUT_AMOUNT}} {{COINNAME}}!<br/>
-            Additionally, you received a bonus of {{PROMO_PAYOUT_AMOUNT}} {{COINNAME}}!
+            Additionally, you received a bonus of {{PROMO_PAYOUT_AMOUNT}} {{COINNAME}}!<br>
+            Transaction: <a href="https://testnet.veil-project.com/tx/{{TX_HASH}}" target="_blank">{{TX_HASH}}</a>
         </div>
     </div>
 	<?php
