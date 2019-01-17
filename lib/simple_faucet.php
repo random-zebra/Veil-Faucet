@@ -174,11 +174,11 @@ class simple_faucet
 											$this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
                                  // try stealth addresses
                                  if ($this->status == SF_STATUS_PAYOUT_ERROR) {
-                                    $this->rpc("sendstealthtostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
+                                    $this->hash = $this->rpc("sendstealthtostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
                                     $this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR;
                                  }
                                  if ($this->status == SF_STATUS_PAYOUT_ERROR) {
-                                    $this->rpc("sendbasecointostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
+                                    $this->hash = $this->rpc("sendbasecointostealth",array($dogecoin_address, ($this->payout_amount+$this->promo_payout_amount) ));
                                     $this->status = !is_null($this->hash) ? $this->promo_payout_amount>0 ? SF_STATUS_PAYOUT_AND_PROMO_ACCEPTED : SF_STATUS_PAYOUT_ACCEPTED : SF_STATUS_PAYOUT_ERROR; // send the DOGE
                                  }
                                  }
